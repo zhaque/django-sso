@@ -1,5 +1,5 @@
 import time
-import urllib2
+import urllib
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.sites.models import Site
@@ -15,7 +15,7 @@ def sso(request):
         user_id, timestamp = request.user.id, time.time()
         token = generate_sso_token(user_id, timestamp)
         
-        path, query = urllib2.splitquery(next)
+        path, query = urllib.splitquery(next)
         query = "%s&id=%s&timestamp=%s&token=%s&" % (query or '', user_id, timestamp, token)
         url = "%s?%s" % (path, query)
     else:
